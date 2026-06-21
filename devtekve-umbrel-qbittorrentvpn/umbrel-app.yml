@@ -1,5 +1,5 @@
 manifestVersion: 1.1
-id: qbittorrentvpn
+id: devtekve-umbrel-qbittorrentvpn
 category: networking
 name: qBittorrentVPN
 version: "5.2.2"
