@@ -14,9 +14,11 @@ services:
       - PUID=1000
       - PGID=1000
       - UMASK=002
+      - VPN_ENABLED=yes
       - VPN_USER=YOUR_NORD_USERNAME
       - VPN_PASS=YOUR_NORD_PASSWORD
       - VPN_PROV=nordvpn
+      - VPN_CLIENT=wireguard
       - STRICT_PORT_FORWARD=yes
       - ENABLE_PRIVOXY=no
     volumes:

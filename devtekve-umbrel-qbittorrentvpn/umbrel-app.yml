@@ -2,7 +2,7 @@ manifestVersion: 1.1
 id: devtekve-umbrel-qbittorrentvpn
 category: networking
 name: qBittorrentVPN
-version: "5.2.3"
+version: "5.2.4"
 tagline: Free and reliable P2P Bittorrent client
 description: >-
   qBittorrent is an open-source software alternative to µTorrent. It's designed to meet the needs of most users while using as little CPU and memory as possible.
