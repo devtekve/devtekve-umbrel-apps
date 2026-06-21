@@ -21,6 +21,8 @@ services:
       - VPN_CLIENT=wireguard
       - STRICT_PORT_FORWARD=yes
       - ENABLE_PRIVOXY=no
+      - LAN_NETWORK=10.21.0.0/16
+      - NAME_SERVERS=1.1.1.1,1.0.0.1
     volumes:
       - ${APP_DATA_DIR}/data/config:/config
       - ${UMBREL_ROOT}/data/storage/downloads:/downloads
