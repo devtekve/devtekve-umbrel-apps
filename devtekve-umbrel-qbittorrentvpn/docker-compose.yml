@@ -3,7 +3,7 @@ version: "3.7"
 services:
   app_proxy:
     environment:
-      APP_HOST: devtekve-umbrel-qbittorrentvpn_nordvpn_1
+      APP_HOST: nordvpn
       APP_PORT: 8080
       PROXY_AUTH_ADD: "true"
       PROXY_AUTH_WHITELIST: "/api/*"
