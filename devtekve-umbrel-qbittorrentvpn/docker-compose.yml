@@ -3,27 +3,39 @@ version: "3.7"
 services:
   app_proxy:
     environment:
-      APP_HOST: devtekve-umbrel-qbittorrentvpn_server_1
+      APP_HOST: devtekve-umbrel-qbittorrentvpn_nordvpn_1
       APP_PORT: 8080
       PROXY_AUTH_ADD: "true"
       PROXY_AUTH_WHITELIST: "/api/*"
+    depends_on:
+      - nordvpn
+
+  nordvpn:
+    image: ghcr.io/bubuntux/nordvpn:latest
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1 # Recommended to prevent IPv6 leaks
+    environment:
+      - TOKEN=YOUR_NORDVPN_TOKEN_HERE # Replaces username/password
+      - CONNECT=United_States # Set to your preferred country
+      - TECHNOLOGY=NordLynx # Uses the faster WireGuard protocol
+      - NETWORK=10.21.0.0/16 # Crucial: Whitelists Umbrel's local network
+    restart: on-failure
 
   server:
-    image: binhex/arch-qbittorrentvpn:latest
+    image: ghcr.io/hotio/qbittorrent:release-5.2.2@sha256:26b3cfd237180a61e64866e376e296e2d49cc5e7e243258a95d7c9bd01b96e58
+    network_mode: "service:nordvpn" # Forces this container to use the VPN tunnel
     environment:
       - PUID=1000
       - PGID=1000
       - UMASK=002
-      - VPN_ENABLED=no
-      - VPN_USER=YOUR_NORD_USERNAME
-      - VPN_PASS=YOUR_NORD_PASSWORD
-      - VPN_PROV=nordvpn
-      - VPN_CLIENT=wireguard
-      - STRICT_PORT_FORWARD=yes
-      - ENABLE_PRIVOXY=no
-      - LAN_NETWORK=10.21.0.0/16
-      - NAME_SERVERS=1.1.1.1,1.0.0.1
+      - VPN_ENABLED=no # Disabled here because the dedicated container handles it
+      - WEBUI_PORTS=8080/tcp,8080/udp
     volumes:
       - ${APP_DATA_DIR}/data/config:/config
       - ${UMBREL_ROOT}/data/storage/downloads:/downloads
+    depends_on:
+      - nordvpn
     restart: on-failure
