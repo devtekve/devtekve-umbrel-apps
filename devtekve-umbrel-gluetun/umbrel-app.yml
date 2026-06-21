@@ -1,0 +1,16 @@
+manifestVersion: 1.1
+id: gluetun
+category: networking
+name: gluetun
+version: "0.0.1"
+description: ""
+releaseNotes: ""
+dependencies: []
+port: 8094
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+torOnly: false
+permissions:
+  - STORAGE_DOWNLOADS
